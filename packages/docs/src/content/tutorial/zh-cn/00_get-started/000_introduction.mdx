@@ -1,0 +1,217 @@
+---
+nav_group: "Getting Started"
+nav_order: 1
+title: "Introduction"
+description: "对 Flitter 框架及其主要特性的介绍"
+files:
+  App.js: |
+    import ReactWidget from "@meursyphus/flitter-react";
+    import { BarChart } from "@meursyphus/flitter-chart";
+
+    export default function App() {
+      const chart = BarChart({
+        data: {
+          title: "标题",
+          labels: ["标签1", "标签2", "标签3", "标签4", "标签5"],
+          datasets: [
+            {
+              legend: "A",
+              data: [30, 40.5, 50.12, 30.5, 40],
+            },
+            {
+              legend: "B",
+              data: [60, 20.5, 20.2, 22.5, 10],
+            },
+            {
+              legend: "C",
+              data: [6, 10.5, 20.2, 12.5, 1],
+            },
+          ],
+        },
+      });
+
+      return (
+        <div>
+          <h1>基础 Flitter 柱状图</h1>
+          <ReactWidget width="auto" height="calc(100vh - 16px)" widget={chart} />
+        </div>
+      );
+    }
+
+solved_files:
+  App.js: |
+    import ReactWidget from "@meursyphus/flitter-react";
+    import { BarChart } from "@meursyphus/flitter-chart";
+    import { Container, BoxDecoration, BoxShadow } from "@meursyphus/flitter";
+
+    export default function App() {
+      const customizedChart = BarChart({
+        data: {
+          title: "标题",
+          labels: ["标签1", "标签2", "标签3", "标签4", "标签5"],
+          datasets: [
+            {
+              legend: "A",
+              data: [30, 40.5, 50.12, 30.5, 40],
+            },
+            {
+              legend: "B",
+              data: [60, 20.5, 20.2, 22.5, 10],
+            },
+            {
+              legend: "C",
+              data: [6, 10.5, 20.2, 12.5, 1],
+            },
+          ],
+        },
+        custom: {
+          bar: {
+            type: "custom",
+            Custom(child, { legend, backgroundColor }) {
+              return Container({
+                decoration: new BoxDecoration({
+                  color: backgroundColor,
+                  boxShadow:
+                    legend === "B" ? [new BoxShadow({ color: "black", blurRadius: 5 })] : [],
+                }),
+                width: legend === "B" ? 30 : 15,
+              });
+            },
+          },
+        },
+      });
+
+      return (
+        <div>
+          <h1>自定义 Flitter 柱状图</h1>
+          <ReactWidget width="auto" height="calc(100vh - 16px)" widget={customizedChart} />
+        </div>
+      );
+    }
+---
+
+# Introduction
+
+Flitter 是一个创新性的框架，可让您轻松地创建并自定义各种图表库。借助自动化的布局计算以及对 SVG 和 Canvas 的无缝支持，您无需再为构建复杂的数据可视化而烦恼。Flitter 还内置了可直接使用的交互和动画功能，让您能够将更多精力投入到呈现有吸引力的内容上，而无需担心底层机制。
+
+## Key Features
+
+- **轻松创建图表和图示**：只需极少的代码，即可构建多种类型的图表与图示。
+- **自动布局计算**：Flitter 会自动为您处理布局细节，简化设计流程。
+- **双渲染器支持**：同时支持 SVG 和 Canvas，可根据项目需求灵活选择。
+- **内置交互与动画**：为图表提供丰富的交互元素和流畅的动画效果。
+- **便捷自定义**：通过 Flitter 小部件可直接定制图表的各个方面。
+
+## Showcase
+
+### Basic Bar Chart
+
+下面演示如何使用 Flitter 创建一个基础柱状图：
+
+```jsx
+import ReactWidget from "@meursyphus/flitter-react";
+import { BarChart } from "@meursyphus/flitter-chart";
+
+export default function App() {
+  const chart = BarChart({
+    data: {
+      title: "标题",
+      labels: ["标签1", "标签2", "标签3", "标签4", "标签5"],
+      datasets: [
+        {
+          legend: "A",
+          data: [30, 40.5, 50.12, 30.5, 40],
+        },
+        {
+          legend: "B",
+          data: [60, 20.5, 20.2, 22.5, 10],
+        },
+        {
+          legend: "C",
+          data: [6, 10.5, 20.2, 12.5, 1],
+        },
+      ],
+    },
+  });
+
+  return (
+    <div>
+      <h1>基础 Flitter 柱状图</h1>
+      <ReactWidget width="600" height="400" widget={chart} />
+    </div>
+  );
+}
+```
+
+这个示例展示了如何无需任何自定义操作，就能快速构建柱状图。
+
+### Customized Bar Chart Using Flitter Widgets
+
+接下来，我们来看看如何使用 Flitter 强大的小部件系统，对图表进行更灵活的自定义：
+
+```jsx
+import ReactWidget from "@meursyphus/flitter-react";
+import { BarChart } from "@meursyphus/flitter-chart";
+import { Container, BoxDecoration, BoxShadow } from "@meursyphus/flitter";
+
+export default function App() {
+  const customizedChart = BarChart({
+    data: {
+      title: "标题",
+      labels: ["标签1", "标签2", "标签3", "标签4", "标签5"],
+      datasets: [
+        {
+          legend: "A",
+          data: [30, 40.5, 50.12, 30.5, 40],
+        },
+        {
+          legend: "B",
+          data: [60, 20.5, 20.2, 22.5, 10],
+        },
+        {
+          legend: "C",
+          data: [6, 10.5, 20.2, 12.5, 1],
+        },
+      ],
+    },
+    custom: {
+      bar: {
+        type: "custom",
+        Custom(child, { legend, backgroundColor }) {
+          return Container({
+            decoration: new BoxDecoration({
+              color: backgroundColor,
+              boxShadow:
+                legend === "B"
+                  ? [new BoxShadow({ color: "black", blurRadius: 5 })]
+                  : [],
+            }),
+            width: legend === "B" ? 30 : 15,
+          });
+        },
+      },
+    },
+  });
+
+  return (
+    <div>
+      <h1>自定义 Flitter 柱状图</h1>
+      <ReactWidget width="600" height="400" widget={customizedChart} />
+    </div>
+  );
+}
+```
+
+#### Highlights of Customization:
+
+- **自定义柱体外观**：对 legend 为 "B" 的柱体设置了更大的宽度并添加了阴影效果。
+- **便捷定制**：Flitter 小部件使您能够直接修改图表组件，简单高效。
+- **自动布局处理**：Flitter 会自动计算并更新布局，免去手动调整位置的麻烦。
+
+## Advantages of Using Flitter
+
+- **简化开发**：快速创建并定制图表，节省大量开发时间与精力。
+- **灵活的定制能力**：可根据业务需求，对图表的各个部分进行深度修改。
+- **自动布局计算**：聚焦设计与功能实现，布局细节交由 Flitter 处理。
+- **丰富的交互与动画**：内置多种交互元素与平滑动画，提升用户体验。
+- **高性能**：在各类设备上都能顺畅渲染并保持良好性能。
